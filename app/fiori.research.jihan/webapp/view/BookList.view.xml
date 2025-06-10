@@ -1,10 +1,9 @@
 <mvc:View
     controllerName="fiori.research.jihan.controller.BookList"
     xmlns="sap.m"
-    xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
 >
-    <SplitApp id="splitApp">
+    <SplitApp id="SplitApp">
         <!-- MASTER: Authors List on the left side -->
         <masterPages>
             <Page title="Dashboard">
@@ -19,6 +18,19 @@
                             tooltip="Add Author"
                             press=".onAddAuthor"
                         />
+
+                            <Button
+                            icon="sap-icon://edit"
+                            tooltip="Edit Author"
+                            press=".onEditAuthor"
+                        />
+
+                        <Button
+                            icon="sap-icon://delete"
+                            type="Reject"
+                            tooltip="Delete Author"
+                            press=".onDeleteAuthor"
+                        />
                     </Toolbar>
                 </subHeader>
 
@@ -26,7 +38,13 @@
                 <List
                     id="authorList"
                     mode="SingleSelectMaster"
-                    items="{ path: '/Authors'}"
+                    items="{ path:'/Authors',
+                                 parameters: {
+                                    $filter: 'isDeleted eq false'
+                                 } 
+                            }"
+                             itemPress=".onAuthorSelect"
+                    selectionChange=".onAuthorSelect"
                 >
                     <!-- Template for each author -->
                     <StandardListItem
@@ -37,5 +55,65 @@
                 </List>
             </Page>
         </masterPages>
+
+ <!-- DETAIL: Books Table on the right side -->
+        <detailPages>
+            <Page
+                id="detailPage"
+                title="Book List"
+            >
+                 <subHeader>
+                    <Toolbar>
+                        <ToolbarSpacer />
+
+                        <Button
+                            id="addBookBtn"
+                            icon="sap-icon://add"
+                            tooltip="Add Book"
+                            press=".onAddBook"
+                        />
+                        <Button
+                            id="editBookBtn"
+                            icon="sap-icon://edit"
+                            tooltip="Edit Selected Book"
+                            press=".onEditBook"
+                        />
+                        <Button
+                            id="deleteBookBtn"
+                            icon="sap-icon://delete"
+                            tooltip="Delete Selected Book"
+                            type="Reject"
+                            press=".onDeleteBook"
+                        />
+                    </Toolbar>
+                </subHeader>
+
+                <Table
+                    id="booksTable"
+                    mode="SingleSelectMaster"
+                >
+                    <columns>
+                        <Column width="25%">
+                            <Text text="Title" />
+                        </Column>
+                        <Column width="35%">
+                            <Text text="Description" />
+                        </Column>
+                        <Column
+                            width="15%"
+                            hAlign="Center"
+                        >
+                            <Text text="Stock" />
+                        </Column>
+                        <Column
+                            width="25%"
+                            hAlign="Center"
+                        >
+                            <Text text="Price" />
+                        </Column>
+                    </columns>
+                </Table>
+            </Page>
+        </detailPages>
     </SplitApp>
 </mvc:View>

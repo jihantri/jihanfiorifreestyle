@@ -88,8 +88,7 @@
         "type": "View",
         "viewType": "XML",
         "path": "fiori.research.jihan.view",
-        "async": true,
-        "viewPath": "fiori.research.jihan.view"
+        "async": true
       },
       "routes": [
         {
